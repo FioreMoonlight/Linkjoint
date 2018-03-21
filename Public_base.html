@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Winpoint</title>
+    <block name="title"></block>
+    
+    <!-- Bootstrap -->
+    <link href="/public/home/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/home/css/font-awesome.min.css" rel="stylesheet">
+    <link  href="/Theme/default/css/common.css" rel="stylesheet" type="text/css"/>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas|Open+Sans" rel="stylesheet"> -->
+    <block name="css"></block>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+    
+  </head>
+  <body>
+    
+    <block name="header"></block>
+
+    <block name="body"></block>
+    
+    <!-- overly outbox bin -->
+        <!-- <div class="overly">
+            <div class="outbox"></div>
+        </div> -->
+    <!-- overly outbox end -->
+    
+    <block name="footer"></block>
+    
+   
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/public/home/js/bootstrap.min.js"></script> 
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript">
+        $(".search").click(function(){
+          if($(".form_search").hasClass("active")){
+              $(".form_search").removeClass('active');
+          }else{
+              $(".form_search").addClass('active');
+          }
+        })
+        if(document.URL.indexOf("home") == -1){
+            $("header").addClass('active2');
+            // $("header").css({"background":"rgba(255,255,255,1)","box-shadow":"rgba(0, 0, 0, 0.5) 2px 0px 2px"});
+            // $(".pc_nav").addClass('active');
+            // console.log(1)
+        }
+
+        var w = $(window).width();
+        if(w>800){
+          var wT = $(window).scrollTop();
+          if (wT > 10){
+              $("header").css({"background":"rgba(255,255,255,1)","box-shadow":"rgba(0, 0, 0, 0.5) 2px 0px 2px"});
+              $(".pc_nav").addClass('active');
+          }else{
+              $("header").css({"background":"rgba(255,255,255,0)","box-shadow":"none"});
+              $(".pc_nav").removeClass('active');
+          }
+        }
+
+        $(window).scroll(function(e) {
+          var w = $(window).width();
+          if(w>800){
+            var wT = $(window).scrollTop();
+            if (wT > 10){
+                $("header").css({"background":"rgba(255,255,255,1)","box-shadow":"rgba(0, 0, 0, 0.5) 2px 0px 2px"});
+                $(".pc_nav").addClass('active');
+            }else{
+                $("header").css({"background":"rgba(255,255,255,0)","box-shadow":"none"});
+                $(".pc_nav").removeClass('active');
+            }
+          }
+        })
+    </script>
+    <block name="js"></block>
+  </body>
+</html>

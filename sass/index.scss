@@ -1,0 +1,421 @@
+@import 'lib/fiore_scss/main';
+$img: "/Theme/default/img";
+
+
+
+.se1{
+    position: relative;
+    height: 1080px;
+    background:url($img+"/home_banner.jpg") center center no-repeat;
+    img{
+        width: 100%;
+    }
+    .content{
+        @include center($w:900px);
+        h1{
+            @include font(('fs':81px,'c':$fontcolor1,'ta':center,'fw':bold));
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+        h2{
+            @include font(('fs':16px,'c':$fontcolor1,'ta':center,'lh':1.4));
+            margin-bottom: 45px;
+        }
+        a{
+            @include button(('fs':16px,'c':$acolor1,'ta':center,'fw':bold,'lh':40px),('w':250px,'brc':$acolor1)); 
+        }
+    }
+}
+.se2{
+    padding-top: 185px;
+    padding-bottom: 100px;
+    .content{ 
+        
+        .title{
+            h1{
+                @include font(('fs':56px,'c':$fontcolor1,'ta':center,'fw':bold)); 
+                margin-bottom: 45px;
+            }
+            h2{
+                @include font(('fs':16px,'c':$fontcolor1,'ta':center,'lh':1.4));
+            }
+            margin-bottom: 80px;
+        }
+        .box_out{
+                overflow: hidden;
+                text-align: center;
+                .box{
+                    width: 25%;
+                    float: left;
+                    &:nth-child(2){
+                        margin: 0 12.5%;
+                    }
+                    img{
+                        margin-bottom: 35px;
+                    }
+                    .title{
+                        @include font(('fs':20px,'c':$fontcolor1,'ta':center)); 
+                        margin-bottom: 10px;
+                    }
+                    
+                    .text{
+                        @include font(('fs':16px,'c':$fontcolor2,'ta':center,'lh':1.4)); 
+                        // height: 110px;
+                    }
+                }
+            }
+    }
+}
+.se3{
+    background: #f1f5f7;
+    padding-top: 175px;
+    padding-bottom: 140px;
+    .content{
+        
+        .title{
+            h1{
+                @include font(('fs':56px,'c':$fontcolor1,'ta':center,'fw':bold));  
+                margin-bottom: 45px;
+            }
+            h2{
+                @include font(('fs':16px,'c':$fontcolor1,'ta':center,'lh':1.4));
+                
+            }
+            margin-bottom: 50px;
+        }
+        .box_out{
+            // overflow: hidden;
+            .porduct{
+                float: left;
+                height: 570px;
+                width: 380px;
+                background: #fafafa;
+                text-align: center;
+                &:nth-child(2){
+                    margin: 0 30px; 
+                }
+                .img_box{
+                    height: 300px;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+                img{
+                    
+                    padding: 20px 0;
+                }
+                .title{
+                    @include font(('fs':24px,'c':$fontcolor1,'ta':center,'fw':bold));       
+                    margin-bottom: 5px; 
+                }
+                .text{
+                    @include font(('fs':16px,'c':$fontcolor2,'ta':center,'lh':1.4));   
+                    margin-bottom: 20px;
+                    padding: 0 23px;
+                }
+                .button{
+                    @include button(('fs':16px,'c':$acolor1,'ta':center,'fw':bold,'lh':40px),('w':250px,'brc':$acolor1))
+                }
+            }
+        }  
+    }
+}
+.se4{
+    background:url($img+"/home_se4_bg.jpg") center center no-repeat;  
+    padding-top: 160px;
+    padding-bottom: 90px;
+     .content{
+        .title{
+            h1{
+                @include font(('fs':56px,'c':#e1f5fe,'ta':center,'fw':bold));   
+                margin-bottom: 45px;
+            }
+            h2{
+                @include font(('fs':16px,'c':#e1f5fe,'ta':center,'lh':1.4));
+                margin-bottom: 50px;
+            } 
+        }
+        .swiper-slide{
+            overflow: hidden;
+            padding-top: 80px;
+            padding-bottom: 180px;
+            @include back(('bp':left bottom 40px)); 
+            .infor_box{   
+                width: 480px;
+                float: right;
+                .title{
+                    @include font(('fs':34px,'c':#e1f5fe,'ta':center,'fw':bold)); 
+                    margin-bottom: 40px;
+                }
+                .infor{
+                    @include font(('fs':16px,'c':#e1f5fe,'lh':1.4));
+                    margin-bottom: 40px;
+                    padding-left: 45px;
+                    background: url($img+"/home_se4_logo.png") left top no-repeat;
+                }
+                .button{
+                    @include button(('fs':14px,'c':#01579b,'ta':center,'fw':bold,'lh':45px),('w':250px,'brc':#e1f5fe,'bg':#e1f5fe)); 
+                    margin-left: 45px;
+                }
+            }
+        } 
+        .swiper-pagination{
+            bottom: 0;
+            .swiper-pagination-bullet{ 
+                width: 20px;
+                height: 20px;
+                background: #039be5;
+                margin: 0 15px;
+                opacity: 1;
+                
+            }
+            .swiper-pagination-bullet-active{
+                background: #e1f5fe;
+            }
+        }
+    }
+}
+.se5{
+    background:#f1f5f7;
+    padding-bottom: 90px;
+    padding-top: 175px;
+    .title{
+        h1{
+            @include font(('fs':56px,'c':$fontcolor1,'ta':center,'fw':bold));   
+            margin-bottom: 45px;
+        }
+        h2{
+            @include font(('fs':16px,'c':$fontcolor1,'ta':center,'lh':1.4));
+        }
+        margin-bottom: 40px;
+    }
+    .box_out{
+        // overflow: hidden;
+        margin-bottom: 50px;
+        .porduct{
+            float: left;
+            height: 530px;
+            width: 380px;
+            background: #fff;
+            &:nth-child(2){
+                margin: 0 30px; 
+            }
+            .time{
+                @include font(('fs':14px,'c':#9e9e9e,'lh':75px));
+                text-transform: uppercase;
+                padding: 0 40px;   
+            }
+            .img_box{
+                height: 220px;
+                background: #ccc;
+                margin-bottom: 25px;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            .title{
+                @include font(('fs':24px,'c':#424242,'fw':bold,'lh':1));
+                margin-bottom: 30px;       
+                padding: 0 40px;
+            }
+            .text{
+                @include font(('fs':16px,'c':#757575,'lh':1.4)); 
+                margin-bottom: 35px;  
+                padding: 0 40px;
+            }
+            .button{
+                @include font(('fs':14px,'c':#0277bd,'fw':bold));
+                padding: 0 40px;
+            }
+        }
+    } 
+    .button_out{
+        margin-top: 50px;
+        @include button(('fs':16px,'c':$acolor1,'ta':center,'fw':bold,'lh':40px),('w':250px,'brc':$acolor1)); 
+    }
+}
+.se6{
+    padding-bottom: 80px;
+    padding-top: 150px;
+    .title{
+        h1{
+            @include font(('fs':56px,'c':$fontcolor1,'ta':center,'fw':bold));  
+            margin-bottom: 45px; 
+        }
+        h2{
+            @include font(('fs':16px,'c':$fontcolor1,'ta':center,'lh':1.4));
+            margin-bottom: 20px;
+        }
+    }
+    .from_box{
+        // padding: 0px 100px 65px;
+        form{
+            margin-bottom: 0;
+            div{
+                margin-bottom: 10px;
+            }
+            div input{
+                background:#fcfcfc;
+                color:#333;
+                line-height: 50px;
+                border-radius:4px;
+                height:50px;
+                border: 1px solid #e6e6e6;
+                box-shadow: none;
+            }
+            textarea{
+                background:#fcfcfc;
+                resize:none;
+                height: 210px;
+                color:#333;
+                border-radius:4px;
+                border: 1px solid #e6e6e6;
+                box-shadow: none;
+            }
+            input[type="submit"]{
+                
+                background:#2475bd;
+                color:#fefefe;
+                font-size: 18px;
+                width: 100%;
+                line-height: 50px;
+                height:60px;
+                padding: 0;
+                
+                margin: 0 auto;
+                display: block;
+            }
+            div:nth-child(1){
+              width: 49%;
+              // margin-right: 10px;
+              float: left;  
+            }
+            // div:nth-child(4){
+            //   width: 560px;
+            //   margin-right: 10px;
+            //   float: left;  
+            // }
+            div:nth-child(2){
+              width: 49%;
+              float: right;  
+            }
+            div:nth-child(4){
+                clear: both;
+                margin-top: 20px;
+            }
+
+        }
+    }
+    .pp{
+        margin-top: 15px;
+        @include font(('fs':12px,'c':#bdbdbd,'ta':center,'lh':1)); 
+        text-decoration: underline;  
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .se1{
+        height: 580px;
+        background-size: cover;
+        .content{
+            padding: 0;
+            @include center($w:300px);
+            h1{ 
+                @include font(('fs':36px,'c':$fontcolor1,'ta':center,'fw':bold));
+            }
+            h2{ 
+                font-size: 14px;
+            }
+        }
+    }
+    .se2{
+        padding: 40px 0;
+        .content{
+            .title{
+                h1{
+                    font-size: 28px;
+                    margin-bottom: 25px;
+                }
+            }
+            .box_out{
+                .box{
+                    width: 100%;
+                    &:nth-child(2){
+                        margin: 20px 0;
+                    }
+                }
+            }
+        }
+    }
+    .se3{
+        padding: 40px 0;
+        .content{
+            .title{
+                h1{
+                    font-size: 28px;
+                    margin-bottom: 25px;
+                }
+            }
+            .box_out{
+                .porduct{
+                    width: 100%;
+                    &:nth-child(2){
+                        margin: 20px 0;
+                    }
+                }
+            }
+        }
+    }
+    .se4{ 
+        padding: 40px 0;
+        .content{
+            .title{
+                h1{
+                    font-size: 28px;
+                    margin-bottom: 25px;
+                }
+            }
+            .swiper-slide{
+                padding-top: 0;
+                background-position: center bottom 60px;
+                background-size: 300px;
+                padding-bottom: 360px;
+                .infor_box{
+                    width: 100%;
+                    .title{
+                        font-size: 28px;
+                    }
+                }
+            }
+        }
+    }
+    .se5{
+        padding:40px 0;
+        .title{
+            h1{
+                font-size: 28px;
+                margin-bottom: 25px;
+            }
+        }
+        .box_out{
+            .porduct{
+                width: 100%;
+                &:nth-child(2){
+                    margin: 20px 0;
+                }
+            }
+        }
+    } 
+    .se6{
+        padding: 40px 0;
+        .content{
+            .title{
+                h1{
+                    font-size: 28px;
+                    margin-bottom: 25px;
+                }
+            }
+        }
+    }
+}

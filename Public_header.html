@@ -1,0 +1,103 @@
+<header>
+    <div class="content">
+      <div class="pc_nav ">
+         <div class="logo">
+            <a href="/home">
+              <img src="/Theme/default/img/logo.png" alt="" /> 
+            </a>
+         </div>
+         <div class="menubox ">
+            <foreach name="Navigation" item="vo" >
+               <if condition="$vo.name eq 'Products'">
+                <nav class="product">
+                  <a target="_self" href="{$vo.link}">{$vo.name}</a>
+                    <ul class="product_box row">
+                      <foreach name="vo.child" item="v">
+                          <li class="col-sm-2">                     
+                             <a href="{$v.link}">
+                               <img class="img-responsive" src="{$v.imglink}">
+                               <p>{$v.name}</p>
+                             </a>                     
+                          </li>
+                      </foreach>
+                    </ul>
+               </nav>
+               <elseif condition="($vo.name eq 'Media center') OR ($vo.name eq 'Why TZWD')"/>
+                  <nav class="product Submenu">
+                  <a target="_self" href="{$vo.link}">{$vo.name}</a>
+               </nav>
+              <else />
+                <nav>
+                  <a target="_self" href="{$vo.link}">{$vo.name}</a>
+                </nav>
+              </if>
+            </foreach>
+             <nav class="search">
+               <a href="javascript:void(0)">
+                 <img src="/Theme/default/img/search_logo.png" alt="" />
+               </a>
+             </nav>
+         </div>
+      </div>
+
+      <div class="form_search">
+         <div class="container">
+           <div class="row">
+             <form class="search_form_" action="/product/list " method="get">
+               <div class="col-sm-10">
+                 <input type="text" name="s2" class="form-control">
+               </div>  
+               <div class="col-sm-2">
+                 <button class="btn g-search2">Search</button>
+               </div>
+             </form>
+           </div>
+         </div>
+      </div>
+      
+      <div class="nav_phone">
+          <nav class="navbar navbar-default" role="navigation">
+              <div class="container-fluid">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse"
+                          data-target="#example-navbar-collapse">
+                      <span class="sr-only">切换导航</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#"><img src="/Theme/default/img/logo.png" alt="" /></a>
+              </div>
+              <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                  <ul class="nav navbar-nav">
+                      <foreach name="Navigation" item="vo" >
+                        <if condition="$vo.child neq null">
+                            <li class="dropdown">
+                              <a href="{$vo.link}" class="dropdown-toggle" data-toggle="dropdown">{$vo.name}<b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <foreach name="vo.child" item="v" key="key1">
+                                  <li><a href="{$v.link}">{$v.name}</a></li>
+                                </foreach>
+                              </ul>
+                            </li>
+                        <else/>
+                          <li><a href="{$vo.link}">{$vo.name}</a></li>
+                        </if>
+                      </foreach>
+                      <li>
+                        <a><form class="" action="/product/list " method="get">
+                          <input type="text" name="s2"><button class="btn g-search">Search</button>
+                        </form></a>
+                      </li>
+                      <!-- <li><a><span>EN</span>|<span>CH</span></a></li> -->
+                  </ul>
+              </div>
+              </div>
+          </nav>
+      </div>
+
+    </div>
+    
+    
+</header>

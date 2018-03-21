@@ -1,0 +1,425 @@
+<extend name="Public:base" />
+<block name="title">
+    <meta name="keywords" content="{$setting.keywords}" />
+    <meta name="description" content="{$setting.description}" />
+    
+</block>
+<block name="css">
+    <link href="/Theme/default/css/common.css" rel="stylesheet" />
+    <link href="/Theme/default/css/product_list.css" rel="stylesheet" />
+</block>
+<block name="header">
+    <include file="Public:header" />
+</block>
+<block name="body">
+    <div class="se1">
+        Products
+    </div>
+    <!-- <div class="se1">
+        <img src="/Theme/default/img/product_list_s1_background.jpg" alt="" />
+    </div> -->
+    <div class="se2">
+        <!-- 循环输出产品分类 -->
+        <div class="content">
+            <div class="class_box left"> 
+                <div class="mobile_list">PRODUCT LIST<i class="icon-angle-right" style=""></i></div>
+                <div class="list_box">
+                    <a href="/product/list" class="allproduct">ALL PRODUCTS</a>
+                    <ul class="out_ul">
+                        <foreach name="CatalogType" item="vo" key="key">
+                                <?php
+                                    if(isset($vo['child'])){
+                                        ?>
+                                            <li class="u1_li">
+                                                <i class="icon-angle-right" style=""></i>
+                                                <a class="title_1" href="/product/list/id/{$vo.id}" class="title">{$vo.name}</a>
+                                                <ul class="u2"> 
+                                                    <?php
+                                                    foreach ($vo['child'] as $key2 => $value2) {
+                                                        if(isset($value2['child'])){
+
+                                                            ?>
+                                                            <li class="u2_li">
+                                                                <a class="title_2" href="/product/list/id/{$value2.id}" class="title">{$value2.name}</a>
+                                                                <ul class="u3">                                                    
+                                                                    <?php
+                                                                    foreach ($value2['child'] as $key3 => $value3) {
+                                                                        ?>                                                                 
+                                                                            <li class="u3_li"><a href="/product/list/id/{$value3.id}" class="title_3">{$value3.name}</a></li>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </ul>
+                                                            </li> 
+                                                            <?php
+                                                        }else{
+                                                            ?>
+                                                                <li class="u2_li"><a href="/product/list/id/{$value2.id}" class="title_2">{$value2.name}</a></li>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </ul>
+                                            </li> 
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <li class="c1_li"><a href="/product/list/id/{$vo.id}" class="title_1">{$vo.name}</a></li>
+                                        <?php
+                                    }
+                                ?>                              
+                        </foreach>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="product right">
+                
+                <div class="product_nav">
+                    <div class="class_name" style="text-transform: uppercase;"><if condition="$catalog_name['name']=='' ">ALL PRODUCTS<else/>{$catalog_name}</if></div>
+                    <div class="num">Showing <span class="num_bin"></span>-<span class="num_end"></span> of {$count} results</div>
+                    
+                </div>
+                <div class="product_box">
+                    
+                        <foreach name="ProductList" item="vo" key="key">
+                            <a href="/product/detail/id/{$vo.id}" class="active">
+                                <div class="product">
+                                    <div class="img_box" style="background-image:url({$vo.product_img.0.image})"></div>
+                                    <div class="title">{$vo.product_title}</div>
+                                </div>
+                            </a>
+                        </foreach>
+                    
+                    <div class="page">
+                        {$page}
+                    </div>
+                </div>
+                {$shop}
+            </div>
+        </div>
+    </div>
+</block>
+<block name="footer">
+    <include file="Public:footer" />
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $(function(){
+            var infor = $(".se2 .content .right .product_nav .class_name").html();
+            $("#email_href").attr("href","/single/contact#form?name="+infor);
+            $(".header").addClass('active2');
+            $(".mobile_list").click(function(){
+                if($(".list_box").css("display")=="none"){
+                    $(".list_box").show();
+                    $(this).find("i").addClass('active');
+                }else{
+                    $(".list_box").hide();
+                    $(this).find("i").removeClass('active');
+                }
+            })
+            $(".header").addClass('active2');
+            if(document.URL.indexOf("s=") > -1 && document.URL.indexOf("id/") > -1){
+                var cl = document.URL.split("id/")[1].split("/p")[0];
+                var pagenum = document.URL.split("/p/")[1].split(".html")[0];
+                // console.log("当前是第"+pagenum)
+                if(document.URL.indexOf("id/28") > -1){
+                    $(".se2 .content .right .product_box .product .img_box").css("background-color","#e0e0e0");
+                }
+                var binnum = (pagenum-1)*9+1;
+                var endnum = (pagenum-1)*9 + $(".product_box>a").length;
+                $(".num_bin").html(binnum);
+                $(".num_end").html(endnum);
+            }else if(document.URL.indexOf("s=") == -1 && document.URL.indexOf("id/") > -1){
+                var cl = document.URL.split("id/")[1];    
+                $(".num_bin").html("1");
+                $(".num_end").html($(".product_box>a").length);
+                if(document.URL.indexOf("id/28") > -1){
+                    $(".se2 .content .right .product_box .product .img_box").css("background-color","#e0e0e0");
+                }
+            }else if(document.URL.indexOf("s=") > -1 && document.URL.indexOf("id/") == -1){
+                var pagenum = document.URL.split("/p/")[1].split(".html")[0];
+                console.log("当前是第"+pagenum)
+
+                var binnum = (pagenum-1)*9+1;
+                var endnum = (pagenum-1)*9 + $(".product_box>a").length;
+                $(".num_bin").html(binnum);
+                $(".num_end").html(endnum);
+            }else if(document.URL.indexOf("s=") == -1 && document.URL.indexOf("id/") == -1){
+                $(".num_bin").html("1");
+                $(".num_end").html($(".product_box>a").length);
+            }
+        })
+        $(".out_ul .u1_li i").click(function(){
+            if($(this).parent().children(".u2").css("display") == "none"){
+                $(this).parent().children(".u2").show();
+                $(this).parent().children("i").addClass('active');
+            }else{
+                $(this).parent().children(".u2").hide();
+                $(this).parent().children("i").removeClass('active');
+            }
+        })
+        var w = $(window).width();
+        if(w>800){
+            $(".out_ul .u1_li i").click();  
+        }
+        
+        // var infor = {};
+        // //获取json数据
+        
+        // $(function(){    
+        //     $.ajax({
+        //         url:"/product/sanjiType",
+        //         type:"POST",
+        //         dataType:"JSON",
+        //         cache:false,
+        //         processData: false, 
+        //         contentType: false,
+        //         async:false,
+        //         success:function(databack){ 
+        //             console.log(databack);
+        //             infor = databack;
+        //             var c1str = "";
+        //             for(var i = 0; i < databack.length ; i++){
+        //                 c1str += '<option value="'+databack[i].id+'" >'+databack[i].name+'</option>';
+        //             }
+        //             $("#class1").append(c1str).fadeIn();
+
+        //             var class_box = "";
+        //             for(var i = 0;i<)
+
+        //         }   
+        //     });
+
+        //     if(document.URL.indexOf("s=") > -1 && document.URL.indexOf("id/") > -1){
+        //         var cl = document.URL.split("id/")[1].split("/p")[0];
+        //         var pagenum = document.URL.split("/p/")[1].split(".html")[0];
+        //         // console.log("当前是第"+pagenum)
+
+        //         var binnum = (pagenum-1)*9+1;
+        //         var endnum = (pagenum-1)*9 + $(".product_box>a").length;
+        //         $(".num_bin").html(binnum);
+        //         $(".num_end").html(endnum);
+        //     }else if(document.URL.indexOf("s=") == -1 && document.URL.indexOf("id/") > -1){
+        //         var cl = document.URL.split("id/")[1];    
+        //         $(".num_bin").html("1");
+        //         $(".num_end").html($(".product_box>a").length);
+        //     }else if(document.URL.indexOf("s=") > -1 && document.URL.indexOf("id/") == -1){
+        //         var pagenum = document.URL.split("/p/")[1].split(".html")[0];
+        //         console.log("当前是第"+pagenum)
+
+        //         var binnum = (pagenum-1)*9+1;
+        //         var endnum = (pagenum-1)*9 + $(".product_box>a").length;
+        //         $(".num_bin").html(binnum);
+        //         $(".num_end").html(endnum);
+        //     }else if(document.URL.indexOf("s=") == -1 && document.URL.indexOf("id/") == -1){
+        //         $(".num_bin").html("1");
+        //         $(".num_end").html($(".product_box>a").length);
+        //     }
+        //     console.log("当前页的id="+cl)
+        //     a(cl);
+        // })
+        //第一个select改变
+        // $("#class1").change(function(event) {
+        //     //第一个select被选中的idnex
+        //     var sindex = $(this).find("option:selected").index();
+        //     console.log(sindex);
+        //     //获取到 被选中的第二级的对象数组
+        //     var inforin = infor[sindex-1];
+            
+        //     //清空后两级的内容
+        //     $("#class2").hide().empty();
+        //     $("#class3").hide().empty();
+
+        //     //储存第二级的生成内容
+        //     var c2str = '<option value="all" >All</option>';
+        //     //避免第一个all选项 同时 拥有child属性
+        //     if(sindex > 0 && inforin.hasOwnProperty('child')){
+        //         //把第二级的内容 进行循环拼接
+        //         // for(var i = 0 ; i < inforin.child.length ; i++){
+        //         //     c2str += '<option value="'+inforin.child[i].id+'" >'+inforin.child[i].name+'</option>';
+        //         // }
+        //         // $("#class2").append(c2str).fadeIn();
+
+        //         //如果第三级的第一个 有child 进行循环拼接
+        //         // if(infor[sindex-1].child[0].hasOwnProperty('child')){
+        //         //     // console.log("加载c3")
+        //         //     var inforinin = infor[sindex-1].child[0];
+        //         //     // console.log(inforinin)
+        //         //     var c3str = "";
+        //         //     if(sindex > 0 && inforinin.hasOwnProperty('child')){
+        //         //         for(var i = 0 ; i < inforinin.child.length ; i++){
+        //         //             c3str += '<option value="'+inforinin.child[i].id+'" >'+inforinin.child[i].name+'<`/opti`on>';
+        //         //         }
+        //         //     }
+        //         //     $("#class3").append(c3str).fadeIn();
+        //         // }
+        //         window.location.href="/product/list/id/" + infor[sindex-1].id;
+        //     }else if(sindex > 0 && !inforin.hasOwnProperty('child')){
+        //         // var name = "?name="+$(this).find("option:selected").text();
+        //         //避免第一个all选项 同时 不拥有child属性
+        //         //调取数据
+        //         // $.ajax({
+        //         //     url:"/product/list/id/" + infor[sindex-1].id,
+        //         //     type:"POST",
+        //         //     dataType:"JSON",
+        //         //     cache:false,
+        //         //     processData: false, 
+        //         //     contentType: false,
+        //         //     success:function(databack){ 
+        //         //         console.log(databack);
+        //         //        $(".product_box").empty();
+        //         //        console.log("执行")
+        //         //        var str = '';
+        //         //        for(var i = 0 ; i < databack.length; i++){
+        //         //             str += '<a href="/product/detail/name/'+databack[i].product_title+'">'
+        //         //             str += '    <div class="product">'
+        //         //             str += '        <div class="img_box" style="background-image:url('+databack[i].product_img[0].image+')"></div>'
+        //         //             str += '        <div class="title">'+databack[i].product_title+'</div>'
+        //         //             str += '    </div>'
+        //         //             str += '</a>'
+        //         //        }
+        //         //        $(".product_box").append(str);
+        //         //     }   
+        //         //  }) ;
+        //         window.location.href="/product/list/id/" + infor[sindex-1].id;
+        //     }else if(sindex == 0){
+        //         //全部产品的产品列表
+        //         window.location.href="/product/list/";
+        //     }
+        // });
+        
+        // //第二个select改变
+        // $("#class2").change(function(event) {
+        //     // console.log($(this).find("option:selected").index());
+        //     var ssindex = $(this).find("option:selected").index();
+        //     var sindex = $("#class1").find("option:selected").index();
+        //     var inforinin = infor[sindex-1].child[ssindex-1];
+        //     // console.log(inforinin); 
+        //     $("#class3").hide().empty(); 
+        //     // console.log(infor[sindex-1])
+        //     console.log(inforinin)
+        //     console.log(ssindex)
+
+        //     var c3str = '<option value="all" >All</option>';
+        //     //避免第一个all选项 同时 拥有child属性
+        //     if(ssindex > 0 && inforinin.hasOwnProperty('child')){
+        //         //把第三级的内容 进行循环拼接
+        //         // for(var i = 0 ; i < inforinin.child.length ; i++){
+        //         //     c3str += '<option value="'+inforinin.child[i].id+'" >'+inforinin.child[i].name+'</option>';
+        //         // }
+        //         // $("#class3").append(c3str).fadeIn();
+        //         window.location.href="/product/list/id/" + infor[sindex-1].child[ssindex-1].id;
+        //     }else if(ssindex > 0 && !inforinin.hasOwnProperty('child')){
+        //         window.location.href="/product/list/id/" + infor[sindex-1].child[ssindex-1].id;
+        //     }else if(ssindex == 0){
+        //         //全部父级产品的产品列表
+        //         window.location.href="/product/list/id/" + infor[sindex-1].child[0].upid;
+        //     }
+        // });
+        
+        // //第三个select改变
+        // $("#class3").change(function(event) {
+        //     // console.log($(this).find("option:selected").index());
+        //     var sssindex = $(this).find("option:selected").index();
+        //     var ssindex = $("#class2").find("option:selected").index();
+        //     var sindex = $("#class1").find("option:selected").index();
+        //     var inforininin = infor[sindex-1].child[ssindex-1];
+
+        //     // console.log(inforinin)
+        //     // console.log(ssindex)
+
+        //     //避免第一个all选项 同时 拥有child属性
+        //     if(sssindex > 0){
+        //         window.location.href="/product/list/id/" + infor[sindex-1].child[ssindex-1].child[sssindex-1].id;
+        //     }else if(sssindex == 0){
+        //         //全部父级产品的产品列表
+        //         window.location.href="/product/list/id/" + infor[sindex-1].child[ssindex-1].child[0].upid;
+        //     }
+        // });
+
+        
+        // //记录位置
+        // function a(id){
+        //     // console.log(infor)
+        //     // alert(id);
+        //     var pos = {}
+        //     for(var i = 0 ; i < infor.length ; i++){
+        //         if(infor[i].id == id){
+        //             console.log("在第一层找到"+infor[i].id);
+        //             pos = {
+        //                 "c1":i
+        //             }
+        //             break;
+
+        //         }
+        //         if(infor[i].hasOwnProperty("child")){
+        //             for(var j = 0 ; j < infor[i].child.length ; j++){
+        //                 //console.log("第二层"+infor[i].child[j].id );
+        //                 if(infor[i].child[j].id == id){
+        //                     console.log("在第二层找到");
+        //                     pos = {
+        //                         "c1":i,
+        //                         "c2":j
+        //                     }
+        //                     break;
+        //                 }
+        //                 if(infor[i].child[j].hasOwnProperty("child")){
+        //                     for(var k = 0 ; k < infor[i].child[j].child.length ; k++){
+        //                         //console.log("第三层"+infor[i].child[j].child[k].id );
+        //                         if(infor[i].child[j].child[k].id == id){
+        //                             console.log("在第三层找到");
+        //                             pos = {
+        //                                 "c1":i,
+        //                                 "c2":j,
+        //                                 "c3":k
+        //                             }
+        //                             break;
+        //                         }
+
+        //                     }
+        //                 }
+                        
+        //             }
+        //         }
+                
+        //     }
+        //     console.log(pos)
+        //     b(pos);
+        // }
+
+        //把select 改变成对应位置
+        // function b(pos){
+        //     if(pos.hasOwnProperty("c1") && pos.c1 > -1){
+        //         $("#class1 option").eq(pos.c1+1).attr("selected",true);
+        //         //把第二级的内容 进行循环拼接
+        //         //储存第二级的生成内容
+        //         var c2str = '<option value="all" >All</option>';
+        //         if(infor[pos.c1].hasOwnProperty('child')){
+        //             for(var i = 0 ; i < infor[pos.c1].child.length ; i++){
+        //                 c2str += '<option value="'+infor[pos.c1].child[i].id+'" >'+infor[pos.c1].child[i].name+'</option>';
+        //             }
+        //         }
+        //         $("#class2").append(c2str).fadeIn();
+        //     }
+        //     if(pos.hasOwnProperty("c2")){
+        //         $("#class2 option").eq(pos.c2+1).attr("selected",true);
+        //         //把第二级的内容 进行循环拼接
+        //         //储存第二级的生成内容
+        //         var c3str = '<option value="all" >All</option>';
+        //         if(infor[pos.c1].child[pos.c2].hasOwnProperty('child')){
+        //             for(var i = 0 ; i < infor[pos.c1].child[pos.c2].child.length ; i++){
+        //                 c3str += '<option value="'+infor[pos.c1].child[pos.c2].child[i].id+'" >'+infor[pos.c1].child[pos.c2].child[i].name+'</option>';
+        //             }
+        //         }
+        //         $("#class3").append(c3str).fadeIn();
+        //     }
+        //     if(pos.hasOwnProperty("c3")){
+        //         $("#class3 option").eq(pos.c3+1).attr("selected",true);
+        //     }
+        // }
+        
+
+
+    </script>
+</block>

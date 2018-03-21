@@ -1,0 +1,85 @@
+<extend name="Public:base" />
+<block name="title">
+    <meta name="keywords" content="{$setting.keywords}" />
+    <meta name="description" content="{$setting.description}" />
+    <title>CONTACT　US</title>
+    <block name="css">
+        <link href="/Theme/default/css/common.css" rel="stylesheet" />
+        <link href="/Theme/default/css/contact.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="/Theme/default/lib/form/parsley.css" />
+    </block>
+</block>
+<block name="css"></block>
+<block name="header">
+    <include file="Public:header" />
+</block>
+<block name="body">
+  <div class="se1">
+      <img src="/Theme/default/img/contact_bg.jpg" alt="">
+      <!-- <h3>contact us</h3> -->
+  </div>
+	<div class="se2">
+   <div class="content"> 
+     <div class="title">
+       
+       <h1>CONTACT US</h1>
+       <h2>
+         Holisticly evisculate low-risk high-yield sources with alternative platforms. Holisticly negotiate cooperative value without proactive sources. Dramatically extend empowered systems vis-a-vis distributed vortals. Globally pursue strategic.
+       </h2>
+     </div>
+     <div class="from_box" >
+         <form id="contact-form" class="" data-parsley-validate="" method="post">
+           <!-- <div><input type="text" class="form-control" placeholder="Title" name="title" required=""></div> -->
+           <div><input type="text" class="form-control" placeholder="Name" name="name" data-parsley-trigger="change" required=""></div>
+           <!-- <div><input type="text" class="form-control" placeholder="Address" name="address" data-parsley-trigger="change" required=""></div> -->
+           <div><input type="text" class="form-control" placeholder="Email" name="email" data-parsley-trigger="change" required=""></div>
+           <div><textarea id="message" placeholder="Contect" class="form-control" name="content" data-parsley-trigger="keyup" data-parsley-minlength="20"  data-parsley-minlength-message="Come on! You need to enter at least a 20 character comment.." data-parsley-validation-threshold="10"></textarea></div>
+           
+           <div><input type="submit" class="btn btn-default" value="Submit"></div>
+         </form>
+     </div>
+   </div> 
+  </div>
+  <!-- overly outbox bin -->
+    <div class="overly">
+     <div class="outbox"></div>
+    </div>
+  <!-- overly outbox end -->
+</block>
+<block name="footer">
+    <include file="Public:footer" />
+</block>
+<block name="js">
+  <!-- <script src="/Theme/default/js/formSend.js"></script> -->
+  <script src="/Theme/default/lib/form/parsley.js"></script>
+  <script>
+    $('#contact-form').submit(function(e) { 
+        $("input[type='submit']").attr("disabled","disabled");//表单提交后禁止点击提交按钮
+        var self = this;
+        if ( $(self).parsley('validate') ) {
+          var data = new FormData($("#contact-form")[0]);
+          $.ajax({
+            url:"/message/idea",
+            type:"POST",
+            data:data,
+            dataType:"JSON",
+            cache:false,
+            processData: false,  
+            contentType: false, 
+            success:function(databack){
+                 console.log(databack) 
+                 $("input[type='submit']").removeAttr("disabled");
+                 if(databack.status == 1){
+                     $(".outbox").html(databack.msg);
+                     $(self)[0].reset();//重置表单
+                     $(self).find("input").removeClass("parsley-success");
+                     $(self).find("textarea").removeClass("parsley-success");
+                     $(".overly").fadeIn(300,function(){$(".outbox").fadeIn()}).delay(2000).fadeOut();//展示返回信息
+                }
+            }   
+          });
+          return false;
+        }
+    });    
+  </script>
+</block>

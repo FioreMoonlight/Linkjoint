@@ -1,0 +1,184 @@
+//* 样式 bin*
+//* 文字 *
+// @mixin font($font-size){
+//     @if type-of($font-size) == 'list'{
+//         font-size:nth($font-size,1);
+//         @if(length($font-size) > 1){
+//             color: nth($font-size,2);
+//         }@else if(length($font-size) > 2){
+//             font-weight:nth($font-size,3);
+//         }@else if(length($font-size) > 3){
+//             text-align: nth($font-size,4);
+//         }@else if(length($font-size) > 4){
+//             line-height: nth($font-size,5);
+//         }
+//     }@else{
+//         font-size : $font-size;
+//     }
+// }
+@mixin font($font:()){
+    
+    @if map-has_key($font,'fs'){
+        font-size:map_get($font,'fs');
+    }@else{
+        font-size:14px;
+    }
+
+    @if map-has_key($font,'c'){
+        color: map_get($font,'c');
+    }@else{
+        color: #333;
+    }
+
+    @if map-has_key($font,'lh'){
+        line-height: map_get($font,'lh'); 
+    }@else{
+        line-height:1;
+    }
+
+    @if map-has_key($font,'fw'){
+        font-weight:map_get($font,'fw');
+    }@else{
+        font-weight:normal;
+    }
+
+    @if map-has_key($font,'ta'){
+        text-align: map_get($font,'ta');
+    }@else{
+        text-align: left;
+    }
+    
+}
+@mixin button($font:(),$div:()){
+    @include font($font);
+    
+    @if map-has_key($div,'w'){
+        width: map_get($div,'w');
+    }@else{
+        width: 250px;
+    }
+    display: block;
+    
+    @if map-has_key($div,'w'){
+        border:1px solid map_get($div,'brc');
+    }@else{
+        border:1px solid #01579b;
+    }
+    transition:.4s;
+    margin: 0 auto;
+    @if not map_get($div,'bg'){
+        &:hover{
+            color:#fff;
+            background:map_get($div,'brc');
+            text-decoration: none;
+        }
+    }@else{
+        background:map_get($div,'bg');
+        &:hover{
+            color:map_get($div,'bg');
+            background:transparent;
+            text-decoration: none;
+        }
+    }
+    
+
+}
+//* 文字响应式 *
+@mixin fontRes($list,$points:$breakpoint){
+    @each $point,$size in $list{
+        @if $point == "null"{
+            // font-size: $size;
+            @include font($size);
+        }@else{
+            //map函数 传入刚才获得的断点，如果刚才的断点point存在于断点list中，则对$point重新赋值为断点list中的实际值
+            @if map-has_key($points,$point){
+                $point : map_get($points,$point);
+            }
+            @media screen and (min-width : $point){
+                // font-size : $size;
+                @include font($size);
+            }
+        }
+    }
+}
+//* hover *
+// @mixin hover($hover('type':'font','c':#fff)){
+//     &:hover{
+
+//     }
+// }
+//* 样式 end *
+
+//* 布局 bin *
+//row
+@mixin rowMachine($numPerRow,$margin) {  
+    //宽度的计算，每列宽度=(总宽度-空隙总宽度)/列数=(总宽度-(列数-1)*空隙宽度)/列数  
+    width: (100% - (($numPerRow - 1) * $margin)) / $numPerRow;  
+    //处理空隙  
+    &:nth-child(n) {  
+        margin-bottom: $margin;  
+        margin-right: $margin;  
+    }  
+    //处理空隙，最后一列空隙为0  
+    &:nth-child(#{$numPerRow}n) {  
+        margin-right: 0;  
+    }  
+}  
+//居中
+@mixin center($w:null,$h:null){
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    @if not $w and not $h{
+        transform:translate(-50%,-50%);
+    }@else if $w and $h{
+        width: $w;
+        height: $h;
+        margin: -($w / 2) #{0 0} -($h / 2);
+    }@else if not $h{
+        width: $w;
+        margin-left: -($w / 2);
+        transform: translateY(-50%);
+    }@else {
+        height: $h;
+        margin-top: -($h / 2);
+        transform:translateX(-50%);
+    }
+}
+//* 布局 end *
+
+//* 常用 bin *
+//-----------------------------------清除浮动----------------------------------------- 
+//引用例子：@include clearfix();  
+@mixin clear() {  
+    &:before,  
+    &:after {  
+        content: "";  
+        display: table;  
+    }  
+    &:after {  
+        clear: both;  
+    }  
+}  
+//----------------------------------- 背景图 ----------------------------------------- 
+@mixin back($back:()){
+    @if map-has_key($back,'br'){
+        background-repeat: map_get($back,'br');
+    }@else{
+        background-repeat:no-repeat;
+    }
+
+    @if map-has_key($back,'bs'){
+        background-size: map_get($back,'bs');
+    }@else{
+        background-size:auto;
+    }
+
+    @if map-has_key($back,'bp'){
+        background-position: map_get($back,'bp');
+    }@else{
+        background-position: center center;
+    }
+}
+//* 常用 end *

@@ -1,0 +1,274 @@
+@import 'lib/fiore_scss/main';
+
+/*overly outbox bin*/
+.overly{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background:rgba(0,0,0,.6);
+    display:none;
+    z-index: 3;
+
+}
+.outbox{
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    padding: 15px;
+    border-radius: 2px;
+    display:none;
+}
+.infor_outbox{
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    padding: 15px;
+    border-radius: 2px;
+    // display:none;
+    opacity: 0;
+}
+/*overly outbox end*/
+.clear{
+    @include clear();
+}
+.content{
+    width: 1200px;
+    margin: 0 auto;
+}
+h1,h2{
+    margin: 0;
+}
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    transition:.4s;
+    .content{ 
+        // width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        .pc_nav{
+            padding-top: 45px;
+            overflow: hidden;
+            transition:.4s;
+            .logo{
+                float: left;
+                transition:.4s;
+                width: 250px;
+                img{
+                    width: 100%;
+                }
+            }
+            .menubox{
+                float: right;
+                nav{
+                    float: left;
+                    a{
+                        @include font(('fs':16px,'c':#616161,'lh':85px,'fw':bold));
+                        margin-right: 25px;
+                    }
+                    &:nth-last-child(3){
+                        a{
+                            margin-right: 0;
+                        }
+                    }
+                    &:nth-last-child(2){
+                        a{
+                            padding: 6px 35px;
+                            margin: 0 30px;
+                            border-left: 1px solid #bdbdbd;
+                            border-right: 1px solid #bdbdbd;
+                        }
+                    }
+                }
+            }
+            &.active{
+                padding-top: 0;
+                .logo{
+                    width: 120px;
+                    line-height: 60px;
+                    img{
+                        // height: 60px;
+                        // width: auto;
+                    }
+                }
+                .menubox{
+                    nav{
+                        a{
+                            line-height: 60px;
+                        }
+                    }
+                }
+            }
+        }
+        .form_search{
+            
+            position: absolute;
+            width: 100%;
+            z-index: 99;
+            left: 0;
+            transition: all 0.4s;
+            height: 0;
+            
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.6);
+            .container{
+                width: 100%;
+                padding: 20px;
+            }
+            .row{
+                margin: 0;
+            }
+            input{
+                border-radius: 0;
+                background-color: rgba(0,0,0,0.5);
+                border: none;
+                color: white;
+            }
+            .btn{
+                width: 100%;
+                border-radius: 0
+            }
+            div{
+                padding:0px
+            }
+            &.active{
+                height: 74px;
+                
+            }
+        }
+        .nav_phone{
+            display: none;
+        }
+    }
+    &.active2{
+        background:rgba(255,255,255,1)!important;
+        box-shadow:rgba(0, 0, 0, 0.5) 2px 0px 2px!important;
+        .content{
+            .pc_nav{
+                padding-top: 0;
+                .logo{
+                    width: 120px;
+                    line-height: 60px;
+                    img{
+                        // height: 60px;
+                        // width: auto;
+                    }
+                }
+                .menubox{
+                    nav{
+                        a{
+                            line-height: 60px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+footer{ 
+    background: #f0f0f0;
+    .content{
+        overflow: hidden;
+        padding: 120px 0;
+        .box{   
+            float: left;
+            width: 400px;
+            border-right:1px solid #bdbdbd;
+            box-sizing:border-box;
+            .title{
+                 @include font(('fs':24px,'c':#424242,'fw':bold,'lh':1));  
+                 margin-bottom: 35px;
+            }
+            .infor{
+                @include font(('fs':16px,'c':#424242,'lh':1.8));
+            }
+            a{
+                @include font(('fs':16px,'c':#424242,'lh':1.8));
+            }
+            &:nth-child(2){
+                padding: 0 119px;
+            }
+            &:nth-child(3){
+                padding: 0 119px;
+                border-right:none;
+            }
+        }
+    }
+    .copyright{
+        @include font(('fs':16px,'c':#666,'lh':85px,'ta':center));
+        border-top:1px solid #bdbdbd;
+    }
+}
+
+.page{
+    clear:both;
+    .btn-group{
+        float: right;
+        .btn{
+            color: #343434;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            width: 35px;
+            height: 35px;
+            position: relative;
+        }
+        .btn.active{
+            background: #343434;
+            color: #fff;
+            border-radius: 50%!important;
+        }
+    }
+}
+
+@media screen and (max-width:768px) {
+    header{
+        .content{
+            padding: 0;
+            .pc_nav{
+                display: none;
+            }
+            .nav_phone{
+                display: block;
+                .navbar{
+                    margin-bottom: 0;
+                }
+                .navbar-brand{
+                    img{
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+    
+    footer{
+        
+        .content{
+            padding: 40px 20px;
+            
+            .box{
+                width: 100%;
+                padding: 0!important;
+                border-right: none;
+                &:nth-child(2){
+                    margin: 20px 0;
+                }
+            }
+        }
+    }
+
+    .content{
+        width: 100%;
+        padding: 0 20px;
+    }
+}

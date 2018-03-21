@@ -1,0 +1,89 @@
+<extend name="Public:base" />
+
+<block name="title">
+    <meta name="keywords" content="{$setting.keywords}" />
+    <meta name="description" content="{$setting.description}" />
+   
+</block>
+
+<block name="css">
+    <style type="text/css">
+        /*.new{
+            width: 1080px;
+            margin: 0 auto;
+            padding-top: 55px;
+            padding-bottom: 70px;
+        }*/
+        .new{
+            margin: 120px 0;
+        }
+        .news_time{
+            float: right;
+            margin-top: 9px;
+        }
+        .news_title{
+            font-size: 28px;
+            font-weight: bold;
+            border-bottom: 1px solid #d9d9d9;
+            padding-bottom: 3px;
+            margin-bottom: 40px;
+        }
+        .news_img{
+            margin: 40px 0;
+            text-align: center;
+        }
+        .news_des{
+            margin: 0;
+            font-size: 14px;
+            /*width: 780px;*/
+            font-family: "open sans";
+        }
+        .news_des img{
+            width: 780px!important;
+            margin: 15px 0;
+            height: auto;
+        }
+        @media screen and (max-width:768px){
+            .news_title{
+                font-size: 18px;
+            }
+            .new{
+                width: 100%;
+                margin: 80px 0; 
+            }
+            .news_time{
+                float:none;
+            }
+            .news_img img{
+                width: 100%;
+            }
+        }
+    </style>
+</block>
+
+<block name="header">
+    <include file="Public:header" />
+</block>
+
+<block name="body">
+
+    <div class="content">
+        <div class="new">
+
+            <div class="news_time">{$News.create_time|date='Y-m-d',###}</div>
+            <div class="news_title">{$News.news_title}</div>
+            <div class="news_img">
+                <img src="{$News.news_img}" alt="" />
+            </div>
+            <div class="news_des">{$News.news_description}</div>
+            <!-- <div class="news_img"><img src="{$News.news_img}" alt="" /></div> -->
+            
+        </div>
+    </div>
+</block>
+
+<block name="footer">
+    <include file="Public:footer" />
+</block>
+
+<block name="js"></block>

@@ -1,0 +1,106 @@
+<extend name="Public:base" />
+
+<block name="title">
+    <meta name="keywords" content="{$setting.keywords}" />
+    <meta name="description" content="{$setting.description}" />
+    
+</block>
+
+<block name="css">
+     <style type="text/css">
+        .banner{
+            height: 360px;
+            background:url(/Theme/default/img/news_list.jpg)  center center no-repeat;
+        }
+        .news_box{
+            width: 1080px;
+            margin: 55px auto 70px;
+        }
+        .news_box a:hover{
+            text-decoration: none;
+        }
+        .new{
+            padding: 30px 0px;
+            border-bottom: 1px dashed #d9d9d9;
+            font-family: "open sans";
+            color: #333;
+            line-height: 1;
+        }
+        .news_time{
+            font-size: 12px;
+            font-family: "open sans";
+            color: #333;
+            line-height: 1;
+            float: right;
+            margin-top: 20px;
+        }
+        .news_title{
+            font-size: 22px;
+            margin: 15px 0;
+            line-height: 1;
+            font-family: "open sans";
+            color: #414040;
+            margin-bottom: 30px;
+        }
+        .news_des{
+            height: 60px;   
+            overflow: hidden;   
+            margin-bottom: 40px;    
+        }
+        .news_des p{
+            font-family: "open sans";
+            color: #737373;
+            line-height: 1.4;
+            font-size: 14px;
+            /*margin-bottom: 40px;*/
+        }
+
+        @media screen and (max-width:768px){
+            .banner{
+                height: 200px;  
+                background-size: cover;
+            }
+            .news_box{
+                width: 100%;
+                margin: 0;  
+            }
+            .news_des{
+                margin-bottom: 20px;    
+            }
+            .new{
+                padding: 30px 20px;
+                margin: 10px auto 10px;
+            }
+        }
+    </style>
+</block>
+
+<block name="header">
+    <include file="Public:header" />
+</block>
+
+<block name="body">
+    <!-- banner -->
+    <div class="banner"></div>
+    <!-- news list -->
+    <div class="news_box">
+        <foreach name="NewsList" item="vo" >
+            <a href="/news/detail/id/{$vo.id}">
+                <div class="new">
+                    <div class="news_time">{$vo.create_time|date='Y-m-d',###}</div>
+                    <div class="news_title">{$vo.news_title}</div>
+                    <div class="news_des">{$vo.news_description}</div>
+                    <span style="color: #00a9e2"> learn more></span>
+                    <!-- <div class="news_img"><img src="{$vo.news_img}" alt="" /></div> -->
+                </div>
+            </a>
+        </foreach>
+    </div>
+</block>
+
+<block name="footer">
+    <include file="Public:footer" />
+</block>
+
+<block name="js">
+</block>

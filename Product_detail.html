@@ -1,0 +1,258 @@
+<extend name="Public:base" />
+<block name="title">
+    <meta name="keywords" content="{$setting.keywords}" />
+    <meta name="description" content="{$setting.description}" />
+    
+</block>
+<block name="css">
+    <link rel="stylesheet" type="text/css" href="/Theme/default/lib/swiper/swiper.min.css" />
+    <link href="/Theme/default/css/product_detail.css" rel="stylesheet" />
+    <link href="/Theme/default/css/common.css" rel="stylesheet" />
+    <style type="text/css">
+        .main{
+            transition:.3s filter;
+        }
+        .outbox{
+            background: transparent;
+        }
+    </style>
+</block>
+<block name="header">
+    <include file="Public:header" />
+</block>
+<block name="body">
+    
+    <div class="se2">
+        <div class="content">
+
+            <div class="class_box left"> 
+                <div class="mobile_list">PRODUCT LIST<i class="icon-angle-right" style=""></i></div>
+                <div class="list_box">
+                    <a href="/product/list" class="allproduct">ALL PRODUCTS</a>
+                    <ul class="out_ul">
+                        <foreach name="CatalogType" item="vo" key="key">
+                                <?php
+                                    if(isset($vo['child'])){
+                                        ?>
+                                            <li class="u1_li">
+                                                <i class="icon-angle-right" style=""></i>
+                                                <a class="title_1" href="/product/list/id/{$vo.id}" class="title">{$vo.name}</a>
+                                                <ul class="u2"> 
+                                                    <?php
+                                                    foreach ($vo['child'] as $key2 => $value2) {
+                                                        if(isset($value2['child'])){
+
+                                                            ?>
+                                                            <li class="u2_li">
+                                                                <a class="title_2" href="/product/list/id/{$value2.id}" class="title">{$value2.name}</a>
+                                                                <ul class="u3">                                                    
+                                                                    <?php
+                                                                    foreach ($value2['child'] as $key3 => $value3) {
+                                                                        ?>                                                                 
+                                                                            <li class="u3_li"><a href="/product/list/id/{$value3.id}" class="title_3">{$value3.name}</a></li>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </ul>
+                                                            </li> 
+                                                            <?php
+                                                        }else{
+                                                            ?>
+                                                                <li class="u2_li"><a href="/product/list/id/{$value2.id}" class="title_2">{$value2.name}</a></li>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </ul>
+                                            </li> 
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <li class="c1_li"><a href="/product/list/id/{$vo.id}" class="title_1">{$vo.name}</a></li>
+                                        <?php
+                                    }
+                                ?>                              
+                        </foreach>
+                    </ul>
+                </div>
+            </div>
+            <div class="right">
+                <div class="box_top">
+                    <div class="left">
+                        <div class="big_img_box">
+                            <foreach name="detail.product_img" item="vo" key="kb">
+                               <div class="big_img" style="background:url({$vo.image}) center center no-repeat;background-size:contain">
+                                   <!-- <img src="{$vo.image}" alt="" /> -->
+                               </div>    
+                            </foreach>
+                        </div>
+                        <div class="small_img_box">
+                            <div class="swiper-container samll_img_swiper">
+                                <div class="swiper-wrapper">
+                                    <foreach name="detail.product_img" item="vo" key="kb">
+                                       <div class="swiper-slide small_img" style="background:url({$vo.image}) center center no-repeat">
+                                       </div>    
+                                    </foreach>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="right">
+                        <!-- <div class="title">{$detail.product_title}</div> -->
+                        <div class="title">{$detail.product_title}</div>
+                        <!-- <div class="div"></div> -->
+                        <div class="num">
+                            <span>ART.NO.:</span>{$detail.item_no}
+                        </div>
+                        <a href="whatsapp://send?phone=+0086-551-62832129" target="_blank">
+                            <div class="button chat">
+                                Chat with sales manager now
+                            </div>
+                        </a>
+                        <a id="email_href" href="/single/contact#form">
+                            <div class="button email">
+                                Send e-mail to sales manager
+                            </div>
+                        </a>
+                        <img src="{$detail.product_gouzao}" alt="" />
+                    </div>    
+                </div>
+                <div class="box_bottom">
+                    <div class="left">
+                        <div class="title">Description:</div>
+                        <div class="text">
+                            {$detail.product_description}
+                        </div>
+                    </div>
+                    <div class="right">
+                        <!-- <img src="{$detail.product_gouzao}" alt="" /> -->
+                    </div>    
+                </div>    
+            </div>
+            
+        </div>
+    </div>
+    
+    
+</block>
+
+<block name="footer">
+    <include file="Public:footer" />
+</block>
+<block name="js">
+    <div class="overly">
+        <div class="outbox">
+            <div class="box"></div>
+        </div>
+    </div>
+    <script src="/Theme/default/lib/swiper/swiper.min.js"></script>
+    <script type="text/javascript">
+        var infor = $(".se2 .content>.right .box_top .right .title").html();
+        $("#email_href").attr("href","/single/contact#form?name="+infor)
+        $(".header").addClass('active2');
+        $(".mobile_list").click(function(){
+            if($(".list_box").css("display")=="none"){
+                $(".list_box").show();
+                $(this).find("i").addClass('active');
+            }else{
+                $(".list_box").hide();
+                $(this).find("i").removeClass('active');
+            }
+        })
+        $(".out_ul .u1_li i").click(function(){
+            if($(this).parent().children(".u2").css("display") == "none"){
+                $(this).parent().children(".u2").show();
+                $(this).parent().children("i").addClass('active');
+            }else{
+                $(this).parent().children(".u2").hide();
+                $(this).parent().children("i").removeClass('active');
+            }
+        })
+        var w = $(window).width();
+        if(w>800){
+            $(".out_ul .u1_li i").click();  
+        }
+        $(document).ready(function(){
+            if($(".se2 .content>.right .box_top .right img").attr("src")==""){
+                $(".se2 .content>.right .box_top .right img").hide()
+            }
+        })
+        var swiper = new Swiper('.samll_img_swiper', {
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 10,
+            slidesPerView:5,
+            // loop:true
+        }); 
+        
+        var w = $(window).width();
+        if(w>800){
+          var swiper = new Swiper('.product_more', {
+            paginationClickable: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 26,
+            slidesPerView:3,
+            // loop:true
+            }); 
+        }else{
+            var swiper = new Swiper('.product_more', {
+                paginationClickable: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                slidesPerView:1,
+                // loop:true
+            }); 
+        }
+        $(window).resize(function(){
+            var w = $(window).width();
+            if(w>800){
+              // var wT = $(window).scrollTop();
+              var swiper = new Swiper('.product_more', {
+                paginationClickable: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                spaceBetween: 26,
+                slidesPerView:3,
+                // loop:true
+                }); 
+            }else{
+                var swiper = new Swiper('.product_more', {
+                    paginationClickable: true,
+                    nextButton: '.swiper-button-next',
+                    prevButton: '.swiper-button-prev',
+                    slidesPerView:1,
+                    // loop:true
+                }); 
+            }
+        })
+
+        $(".small_img:first-child").addClass('active');
+        $(".small_img").click(function(){
+            var index = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $(".big_img").eq(index).show().siblings().hide();
+        })
+
+        $(".big_img").click(function(){
+            var a = $(this).css('background');
+            // console.log(a);
+            $(".outbox .box").css("background",a)
+            $(".overly").show();
+            // console.log($(this).css("background"))
+            $(".overly").fadeIn(300,function(){$(".main").css({"filter":"blur(5px)"});$(".outbox").css("opacity","1")});
+        })
+        $(".overly").click(function(){
+            $(".outbox").css("opacity","0");
+            setTimeout(function(){
+                $(".main").css({"filter":"blur(0px)"});
+                $(".overly").fadeOut(300);    
+            }, 400)
+            
+                           
+        })
+    </script>
+</block>

@@ -1,0 +1,17 @@
+$breakpoint:(
+    'small' : 480px,
+    'middle' : 768px,
+    'large' : 1200px
+);
+$h1List:(
+    'null' : ('fs':10px,'lh':1),
+    'small' : ('fs':20px,'lh':1.2),
+    'middle' : ('fs':30px,'lh':1.5),
+    'large' : ('fs':40px,'lh':2)
+);
+$pList:(
+    'null' : (15px,1),
+    'small' : (16px,1.2),
+    'middle' : (17px,1.5),
+    'large' : (18px,2.0)
+);
